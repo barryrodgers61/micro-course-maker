@@ -1,0 +1,1056 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Micro Course Maker — Interactive Micro-Courses In Minutes</title>
+  <meta name="description" content="Create interactive micro-courses in minutes with AI. Replace ignored PDFs with tap-through lessons, quizzes, images, videos and a built-in call-to-action.">
+  <style>
+    :root{
+      --bg:#050507;
+      --bg2:#0b0b10;
+      --card:#111118;
+      --card2:#171720;
+      --line:rgba(255,255,255,.11);
+      --text:#f7f7fb;
+      --muted:#b9bac7;
+      --soft:#858699;
+      --blue:#3b82f6;
+      --purple:#8b5cf6;
+      --cyan:#67e8f9;
+      --green:#29f07c;
+      --red:#ff3c3c;
+      --shadow:0 24px 80px rgba(0,0,0,.45);
+      --radius:26px;
+      --max:1160px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(59,130,246,.20), transparent 34%),
+        radial-gradient(circle at 82% 8%, rgba(139,92,246,.18), transparent 32%),
+        radial-gradient(circle at 50% 48%, rgba(103,232,249,.06), transparent 34%),
+        linear-gradient(180deg,#050816 0%,#0b1024 46%,#050507 100%);
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .wrap{width:min(var(--max), calc(100% - 36px)); margin:0 auto}
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:24px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:21px;
+      font-weight:950;
+      letter-spacing:-.03em;
+    }
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--blue),var(--cyan));
+      box-shadow:0 0 34px rgba(59,130,246,.45);
+      color:#050507;
+      display:grid;
+      place-items:center;
+      font-weight:950;
+    }
+    .nav-cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      padding:10px 18px;
+      border-radius:999px;
+      font-weight:800;
+      text-decoration:none;
+      color:#fff;
+    }
+    .hero{
+      padding:36px 0 76px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:42px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      color:#c4b5fd;
+      border:1px solid rgba(139,92,246,.28);
+      background:rgba(139,92,246,.08);
+      padding:8px 13px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      margin-bottom:16px;
+    }
+    .hero h1{
+      font-size:clamp(40px,6vw,74px);
+      line-height:.96;
+      margin:0 0 20px;
+      letter-spacing:-.065em;
+      max-width:860px;
+    }
+    .grad{
+      background:linear-gradient(90deg,#fff 0%,#ddd6fe 32%,#3b82f6 88%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .hero p.lead{
+      color:#d6d7e0;
+      font-size:clamp(18px,2vw,23px);
+      line-height:1.48;
+      margin:0 0 26px;
+      max-width:720px;
+    }
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:14px;
+      margin:24px 0 18px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:0;
+      text-decoration:none;
+      font-weight:950;
+      letter-spacing:-.02em;
+      border-radius:15px;
+      padding:17px 24px;
+      min-height:58px;
+      box-shadow:0 16px 36px rgba(59,130,246,.28);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover{transform:translateY(-2px); box-shadow:0 22px 46px rgba(59,130,246,.38)}
+    .btn-primary{
+      background:linear-gradient(135deg,#67e8f9,#8b5cf6 52%,#2563eb);
+      color:#050816;
+    }
+    .btn-secondary{
+      color:#fff;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow:none;
+    }
+    .proof-line{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px 22px;
+      color:#c9cad6;
+      font-size:15px;
+      font-weight:750;
+    }
+    .proof-line span::before{content:"✓ "; color:var(--green); font-weight:950}
+    .hero-card{
+      position:relative;
+      border:1px solid rgba(255,255,255,.13);
+      background:
+        radial-gradient(circle at 55% 0%, rgba(59,130,246,.22), transparent 42%),
+        linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.02));
+      border-radius:34px;
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+    .mock{
+      border-radius:26px;
+      overflow:hidden;
+      background:#060608;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
+    }
+    .mock-top{
+      height:42px;
+      background:#101017;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:0 15px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .dot{width:10px;height:10px;border-radius:50%;background:#ff5f57}
+    .dot:nth-child(2){background:#febc2e}
+    .dot:nth-child(3){background:#28c840}
+    .mock-body{
+      padding:28px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(139,92,246,.12), transparent 25%),
+        linear-gradient(180deg,#0b0b11,#060608);
+    }
+    .course-badge{
+      display:inline-block;
+      padding:7px 10px;
+      border-radius:999px;
+      color:#9ef9bc;
+      background:rgba(41,240,124,.1);
+      font-size:12px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      margin-bottom:14px;
+    }
+    .mock h3{font-size:34px; line-height:1.02; letter-spacing:-.05em; margin:0 0 12px}
+    .mock p{color:#c6c7d1; margin:0 0 20px}
+    .progress{height:10px;border-radius:999px;background:#252532;overflow:hidden;margin-bottom:20px}
+    .progress b{display:block;height:100%;width:75%;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+    .lesson{
+      display:flex; gap:14px; align-items:flex-start;
+      padding:14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.09);
+      margin-bottom:12px;
+    }
+    .lesson-no{
+      width:34px; height:34px; border-radius:12px;
+      display:grid; place-items:center;
+      color:#050816; font-weight:950;
+      background:linear-gradient(135deg,var(--purple),var(--blue));
+      flex:0 0 auto;
+    }
+    .lesson strong{display:block}
+    .lesson small{color:#aeb0be}
+    .float-pill{
+      position:absolute;
+      right:-12px;
+      bottom:34px;
+      background:#0b0b10;
+      border:1px solid rgba(139,92,246,.35);
+      box-shadow:0 18px 50px rgba(59,130,246,.22);
+      border-radius:20px;
+      padding:14px 16px;
+      max-width:230px;
+      font-weight:900;
+    }
+    .float-pill span{color:var(--purple)}
+    section{padding:76px 0}
+    .section-head{
+      text-align:center;
+      max-width:840px;
+      margin:0 auto 38px;
+    }
+    .kicker{
+      color:var(--purple);
+      font-weight:950;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:14px;
+      margin-bottom:8px;
+    }
+    h2{
+      font-size:clamp(34px,4.6vw,56px);
+      line-height:1.02;
+      letter-spacing:-.055em;
+      margin:0 0 16px;
+    }
+    .section-head p{
+      color:#c7c8d2;
+      font-size:18px;
+      margin:0 auto;
+      max-width:720px;
+    }
+    .panel{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .pain-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:14px;
+    }
+    .pain{
+      padding:22px;
+      border-radius:22px;
+      background:#111118;
+      border:1px solid rgba(255,255,255,.09);
+      color:#d7d8e2;
+    }
+    .pain b{
+      display:block;
+      color:#fff;
+      margin-bottom:9px;
+      font-size:20px;
+      letter-spacing:-.03em;
+    }
+    .x{color:var(--red); font-weight:950}
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+    .step{
+      padding:28px;
+      position:relative;
+      overflow:hidden;
+    }
+    .num{
+      width:54px;height:54px;border-radius:18px;
+      background:linear-gradient(135deg,var(--blue),var(--cyan));
+      color:#050816;
+      display:grid;place-items:center;
+      font-size:24px;font-weight:950;
+      margin-bottom:18px;
+    }
+    .step h3,.feature h3,.price h3,.bonus h3{font-size:24px;line-height:1.1;margin:0 0 10px;letter-spacing:-.035em}
+    .step p,.feature p,.price p,.bonus p{color:#c4c5d0;margin:0}
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .feature{
+      padding:24px;
+      border-radius:22px;
+      background:#111118;
+      border:1px solid rgba(255,255,255,.09);
+    }
+    .icon{
+      font-size:25px;
+      width:48px;height:48px;border-radius:16px;
+      display:grid;place-items:center;
+      background:rgba(59,130,246,.13);
+      border:1px solid rgba(59,130,246,.25);
+      margin-bottom:15px;
+    }
+    .split{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:center;
+    }
+    .story{
+      padding:34px;
+    }
+    .story p{color:#d7d8e2;font-size:18px}
+    .check-list{
+      list-style:none;
+      padding:0;
+      margin:18px 0 0;
+      display:grid;
+      gap:12px;
+    }
+    .check-list li{
+      padding-left:32px;
+      position:relative;
+      color:#dadbe5;
+    }
+    .check-list li::before{
+      content:"✓";
+      position:absolute;
+      left:0;
+      top:0;
+      color:var(--green);
+      font-weight:950;
+    }
+    .compare{
+      display:grid;
+      gap:12px;
+      max-width:920px;
+      margin:0 auto;
+    }
+    .compare-row{
+      display:grid;
+      grid-template-columns:1fr 64px 1fr;
+      align-items:center;
+      gap:18px;
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.055);
+      border:1px solid rgba(255,255,255,.09);
+    }
+    .compare-row div:first-child{color:#aaa}
+    .arrow{
+      text-align:center;
+      color:var(--purple);
+      font-size:26px;
+      font-weight:950;
+    }
+    .compare-row div:last-child{font-weight:900;color:#fff}
+    .testimonials{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    blockquote{
+      margin:0;
+      padding:24px;
+      border-radius:22px;
+      background:#111118;
+      border:1px solid rgba(255,255,255,.09);
+      color:#e4e5ee;
+    }
+    blockquote p{margin:0 0 16px}
+    blockquote cite{font-style:normal;color:var(--purple);font-weight:900}
+    .uses{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+    .use{
+      padding:18px 18px 18px 48px;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.05);
+      border-radius:18px;
+      position:relative;
+      font-weight:850;
+    }
+    .use::before{
+      content:"✓";
+      position:absolute;
+      left:18px;top:17px;
+      color:var(--green);
+      font-weight:950;
+    }
+    .pricing{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    .price{
+      padding:30px;
+      border-radius:30px;
+      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.12);
+      position:relative;
+      overflow:hidden;
+    }
+    .price.pro{
+      border-color:rgba(139,92,246,.55);
+      box-shadow:0 0 0 1px rgba(139,92,246,.18), 0 30px 90px rgba(59,130,246,.16);
+    }
+    .tag{
+      display:inline-block;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--blue),var(--purple));
+      color:#050816;
+      font-weight:950;
+      padding:7px 12px;
+      margin-bottom:12px;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+    .price-amount{
+      display:flex;
+      align-items:flex-end;
+      gap:14px;
+      margin:18px 0;
+    }
+    .was{
+      color:#8c8d9b;
+      text-decoration:line-through;
+      font-size:30px;
+      font-weight:900;
+    }
+    .now{
+      font-size:70px;
+      line-height:.9;
+      letter-spacing:-.07em;
+      font-weight:950;
+      color:#fff;
+    }
+    .price small{color:#babbc6;font-weight:800}
+    .price ul{
+      list-style:none;
+      padding:0;
+      margin:22px 0;
+      display:grid;
+      gap:11px;
+    }
+    .price li{
+      position:relative;
+      padding-left:28px;
+      color:#e1e2eb;
+    }
+    .price li::before{
+      content:"✓";
+      position:absolute;
+      left:0;
+      color:var(--green);
+      font-weight:950;
+    }
+    .guarantee{
+      display:grid;
+      grid-template-columns:84px 1fr;
+      gap:22px;
+      align-items:center;
+      max-width:880px;
+      margin:32px auto 0;
+      padding:28px;
+    }
+    .seal{
+      width:84px;height:84px;border-radius:28px;
+      display:grid;place-items:center;
+      font-size:38px;
+      background:rgba(41,240,124,.12);
+      border:1px solid rgba(41,240,124,.25);
+    }
+    .faq{
+      max-width:900px;
+      margin:0 auto;
+      display:grid;
+      gap:14px;
+    }
+    details{
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.055);
+      border-radius:18px;
+      padding:18px 20px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:950;
+      font-size:18px;
+      letter-spacing:-.02em;
+    }
+    details p{color:#c8c9d5;margin:12px 0 0}
+    .final{
+      text-align:center;
+      padding:90px 0 110px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(59,130,246,.22), transparent 40%),
+        linear-gradient(180deg,transparent,rgba(59,130,246,.05));
+    }
+    .final h2{max-width:900px;margin-left:auto;margin-right:auto}
+    .final p{
+      color:#d2d3dd;
+      max-width:760px;
+      margin:0 auto 24px;
+      font-size:19px;
+    }
+    .footer{
+      border-top:1px solid rgba(255,255,255,.09);
+      color:#8e90a1;
+      padding:28px 0 90px;
+      font-size:13px;
+    }
+    .footer p{max-width:980px}
+
+    /* --- Refined hero/demo/reviews styles --- */
+    .hero .cta-row.hero-single-cta{
+      margin-top:26px;
+      margin-bottom:18px;
+    }
+
+    .hero .cta-row.hero-single-cta .btn{
+      min-width:280px;
+      font-size:18px;
+    }
+
+    .float-pill{
+      position:static;
+      right:auto;
+      bottom:auto;
+      max-width:none;
+      margin:18px auto 0;
+      text-align:center;
+      background:rgba(5,8,22,.72);
+      border:1px solid rgba(139,92,246,.28);
+      box-shadow:none;
+      border-radius:18px;
+      padding:13px 16px;
+    }
+
+    .video-demo-section{
+      padding-top:58px;
+      padding-bottom:64px;
+    }
+
+    .video-demo-heading{
+      text-align:center;
+      max-width:840px;
+      margin:0 auto 26px;
+    }
+
+    .video-demo-heading h2{
+      display:block;
+      text-align:center;
+      font-size:clamp(30px,4vw,48px);
+      line-height:1.08;
+      letter-spacing:-.045em;
+      margin:0 auto;
+      max-width:840px;
+    }
+
+    .video-box{
+      max-width:860px;
+      margin:0 auto;
+      padding:18px;
+      border-radius:30px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(139,92,246,.16), transparent 38%),
+        linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+    }
+
+    .video-embed{
+      border-radius:22px;
+      overflow:hidden;
+      background:#050816;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 22px 70px rgba(0,0,0,.34);
+    }
+
+    .video-embed iframe{
+      border-radius:22px;
+    }
+
+    .video-actions{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:13px;
+      margin-top:22px;
+    }
+
+    .video-actions .btn{
+      width:min(100%, 380px);
+      text-align:center;
+    }
+
+    .reviews-snippet-section{
+      padding-top:70px;
+      padding-bottom:70px;
+    }
+
+    .reviews-snippet-box{
+      max-width:1040px;
+      margin:0 auto;
+      padding:26px;
+      border-radius:30px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(59,130,246,.14), transparent 38%),
+        linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+    }
+
+    @media (max-width: 940px){
+      .hero-grid,.split,.pricing{grid-template-columns:1fr}
+      .pain-grid{grid-template-columns:1fr 1fr}
+      .steps,.feature-grid,.testimonials,.uses{grid-template-columns:1fr 1fr}
+      .float-pill{position:static;margin-top:16px}
+    }
+
+    @media (max-width: 620px){
+      .nav{align-items:flex-start}
+      .nav-cta{display:none}
+      .hero{padding-top:18px}
+      .pain-grid,.steps,.feature-grid,.testimonials,.uses{grid-template-columns:1fr}
+      .compare-row{grid-template-columns:1fr;gap:8px}
+      .arrow{text-align:left}
+      .price-amount{align-items:center}
+      .now{font-size:58px}
+      .guarantee{grid-template-columns:1fr}
+      .video-box,
+      .reviews-snippet-box{
+        padding:14px;
+        border-radius:22px;
+      }
+      .video-embed,
+      .video-embed iframe{
+        border-radius:16px;
+      }
+      .hero .cta-row.hero-single-cta .btn{
+        width:100%;
+        min-width:0;
+      }
+    }
+
+</style>
+<img src="https://warriorplus.com/o2/btn/pn100011001/w4xrl7/cmjfs1/463265" height="1" width="1" style="visibility: hidden;">
+<img src="https://warriorplus.com/o2/btn/pn100011001/w4xrl7/cmjfs1/463266" height="1" width="1" style="visibility: hidden;">
+</head>
+<body>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">✦ For list builders, affiliates & digital product creators</div>
+          <h1>Stop Giving Away PDFs Nobody Reads - <span class="grad">Give Them This Instead</span></h1>
+          <p class="lead">Create simple, interactive micro-courses in minutes using AI — no writing, no tech skills, no expensive LMS platform, and no blank-screen wrestling match.</p>
+
+          <div class="cta-row hero-single-cta">
+            <center><a class="btn btn-primary" href="#demo-video">See It In Action - Watch Demo →</a></center>
+          </div>
+
+          <div class="proof-line">
+            <span>Instant access</span>
+            <span>One-time payment</span>
+            <span>7-day guarantee</span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="mock">
+            <div class="mock-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="mock-body">
+              <span class="course-badge">Interactive mini-course</span>
+              <h3>How to Build Interactive MicroCourses That Convert</h3>
+              <p>A bite-sized, quiz-driven lead magnet your visitor can actually complete.</p>
+              <div class="progress"><b></b></div>
+              <div class="lesson"><div class="lesson-no">1</div><div><strong>Replace The PDF</strong><small>Why passive downloads get ignored</small></div></div>
+              <div class="lesson"><div class="lesson-no">2</div><div><strong>Plan One Quick Win</strong><small>One problem. One promise. One focused result.</small></div></div>
+              <div class="lesson"><div class="lesson-no">3</div><div><strong>Add Quizzes + Recaps</strong><small>Turn reading into active learning</small></div></div>
+            </div>
+          </div>
+          <div class="float-pill">Built by AI. <span>Edited by you.</span> Published as clean HTML.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">If you have ever created a lead magnet...</div>
+          <h2>You already know the painful truth about passive content</h2>
+          <p>You spend hours creating something useful. You upload it. You send traffic. People opt in. Then… tumbleweed.</p>
+        </div>
+
+        <div class="pain-grid">
+          <div class="pain"><b><span class="x">✕</span> PDFs get parked</b>People download them with good intentions, then “read later” becomes “never.”</div>
+          <div class="pain"><b><span class="x">✕</span> Videos get skipped</b>Even great training gets abandoned when it asks for too much time upfront.</div>
+          <div class="pain"><b><span class="x">✕</span> Checklists feel thin</b>They are easy to make, but they rarely create that “wow, this helped me” feeling.</div>
+          <div class="pain"><b><span class="x">✕</span> LMS tools are overkill</b>You do not need a full course platform just to teach one focused thing.</div>
+          <div class="pain"><b><span class="x">✕</span> The offer bridge is weak</b>Most lead magnets do not naturally guide people to the next step.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap split">
+        <div class="story panel">
+          <div class="kicker">There is a better way</div>
+          <h2>Micro Course Maker turns your idea into a guided experience</h2>
+          <p>Instead of handing your visitor another static download, give them a short, focused, tap-through micro-course that teaches one thing, creates a quick win, and naturally leads to your offer.</p>
+          <ul class="check-list">
+            <li>Teach one clear problem without overwhelming your audience.</li>
+            <li>Use quizzes and recaps to keep people engaged.</li>
+            <li>Add a built-in call-to-action at the finish line.</li>
+            <li>Create useful lead magnets, bonuses, presell pages, or PLR assets.</li>
+          </ul>
+        </div>
+
+        <div class="story panel">
+          <div class="kicker">The simple outcome</div>
+          <h2>From “I should make a lead magnet” to “it’s done already”</h2>
+          <p>Micro Course Maker handles the structure, lessons, quizzes, flow and formatting. You stay in control, but you are no longer starting from a blank page.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#pricing">Choose Your Version →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo-video" class="video-demo-section">
+      <div class="wrap">
+        <div class="video-demo-heading">
+          <h2>Watch as I create a complete interactive micro-course in minutes…<br>using a simple AI-powered tool.</h2>
+        </div>
+
+        <div class="video-box">
+          <div class="video-embed">
+            <div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/634922/5af31a2d-58df-4211-993f-d291c2edab10?autoplay=false&amp;loop=false&amp;muted=false&amp;preload=true&amp;responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>
+          </div>
+
+          <div class="video-actions">
+            <a class="btn btn-secondary" href="https://microcoursemaker.com/1/demo/3h006x1w68.html" target="_blank" rel="noopener">
+              See the Course I Made Here
+            </a>
+
+            <a class="btn btn-primary" href="#pricing">
+              I've Seen Enough - I Want It!
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Here’s how simple it is</div>
+          <h2>From rough idea to interactive micro-course in 3 steps</h2>
+        </div>
+
+        <div class="steps">
+          <div class="step panel">
+            <div class="num">1</div>
+            <h3>Enter Your Topic</h3>
+            <p>Add your course idea, choose the tone and depth, and optionally upload a supporting PDF or text file for the AI to draw from.</p>
+          </div>
+          <div class="step panel">
+            <div class="num">2</div>
+            <h3>AI Builds The Course</h3>
+            <p>The app creates a structured, bite-sized course with lessons, quizzes, recaps and a natural flow from start to finish.</p>
+          </div>
+          <div class="step panel">
+            <div class="num">3</div>
+            <h3>Edit, Export & Use It</h3>
+            <p>Refine anything manually or with AI, add images or videos, set your CTA, then export a clean HTML package ready to upload.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">What’s inside</div>
+          <h2>Everything you need to create micro-courses people actually finish</h2>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature"><div class="icon">🧠</div><h3>AI Course Structure</h3><p>Turn a rough idea into a complete, logical micro-course without outlining everything yourself.</p></div>
+          <div class="feature"><div class="icon">👆</div><h3>Interactive Lessons</h3><p>Short, focused, tap-through lessons create micro-commitments instead of passive skimming.</p></div>
+          <div class="feature"><div class="icon">✅</div><h3>Optional Quizzes</h3><p>Help learners think, remember and feel progress with simple knowledge checks.</p></div>
+          <div class="feature"><div class="icon">🎬</div><h3>Images + Videos</h3><p>Add visuals and video embeds so your course feels modern and engaging.</p></div>
+          <div class="feature"><div class="icon">✨</div><h3>AI Rewrite + Regenerate</h3><p>Rewrite selected content and regenerate images without switching tools or starting over.</p></div>
+          <div class="feature"><div class="icon">🎯</div><h3>Built-In CTA</h3><p>End each course with a clear next step to your offer, product, affiliate link or community.</p></div>
+          <div class="feature"><div class="icon">📱</div><h3>Mobile-Friendly Output</h3><p>Courses are designed for real-world consumption on the devices people actually use.</p></div>
+          <div class="feature"><div class="icon">📄</div><h3>Upload Supporting Docs</h3><p>Use PDFs or text files to guide the AI and turn existing material into something interactive.</p></div>
+          <div class="feature"><div class="icon">🔓</div><h3>No Monthly Tool Tax</h3><p>Bring your own OpenAI API key and create courses without subscriptions or credit packs.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">What changes once you have it</div>
+          <h2>From ignored downloads to finished experiences</h2>
+        </div>
+
+        <div class="compare">
+          <div class="compare-row"><div>Spending hours building another PDF</div><div class="arrow">→</div><div>Generating an interactive course in minutes</div></div>
+          <div class="compare-row"><div>People skim, save, forget and move on</div><div class="arrow">→</div><div>Visitors tap through lessons, quizzes and recaps</div></div>
+          <div class="compare-row"><div>Trying to make a simple asset inside a complex LMS</div><div class="arrow">→</div><div>Using a focused app built for quick-win micro-courses</div></div>
+          <div class="compare-row"><div>Lead magnets that end with a weak “thanks” page</div><div class="arrow">→</div><div>A clear finish-line CTA that points to your offer</div></div>
+          <div class="compare-row"><div>Paying monthly for tools you only need occasionally</div><div class="arrow">→</div><div>One-time access plus pay-as-you-go AI usage</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Real feedback</div>
+          <h2>What people said after trying the micro-course format</h2>
+          <p>These comments came from people who were shown an interactive course created using the approach.</p>
+        </div>
+
+        <div class="testimonials">
+          <blockquote><p>“Looks smooth and works smoothly, and as a lead magnet it slides smoothly into the paid offer. I like it a lot.”</p><cite>— Kelvin E.</cite></blockquote>
+          <blockquote><p>“A mini-course would make an attractive lead magnet, and having a clean, well-made presentation like that makes a great impression.”</p><cite>— Doug S.</cite></blockquote>
+          <blockquote><p>“This is very easy to follow and I really like the format. It’s so different from a PDF and everyone does those things.”</p><cite>— Douglas H.</cite></blockquote>
+          <blockquote><p>“I like this approach because it seems to break it up into bite-sized pieces.”</p><cite>— Richard T.</cite></blockquote>
+          <blockquote><p>“Just had a look at the interactive course. Great approach. The format is super cool.”</p><cite>— Sarav C.</cite></blockquote>
+          <blockquote><p>“I enjoyed your course and the way it nicely slipped into an affiliate offer — different!”</p><cite>— Mike H.</cite></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap split">
+        <div class="story panel">
+          <div class="kicker">Use it however you want</div>
+          <h2>Create assets for leads, sales, bonuses and promotions</h2>
+          <p>Because the output is a simple HTML course, you can use it in all sorts of useful ways.</p>
+        </div>
+        <div class="uses">
+          <div class="use">Lead magnets people actually finish</div>
+          <div class="use">Quick-win lessons for your email list</div>
+          <div class="use">High-value affiliate bonuses</div>
+          <div class="use">Presell micro-courses for paid offers</div>
+          <div class="use">Rebrandable assets for affiliates</div>
+          <div class="use">PLR-style courses you can sell</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Bring Your Own Key</div>
+          <h2>Create micro-courses without getting locked into another subscription</h2>
+          <p>Micro Course Maker uses a BYOK model. You connect your own OpenAI API key, pay only for what you actually use, and avoid the usual monthly credits-and-limits nonsense.</p>
+        </div>
+
+        <div class="story panel">
+          <p>Most tools in this space either charge monthly, restrict your usage with credits, or push you into a platform that does far more than you need. This is built differently: a focused app for creating quick, useful, interactive course assets whenever you need them.</p>
+          <ul class="check-list">
+            <li>No recurring subscription just to keep access.</li>
+            <li>No artificial “credits” system inside the app.</li>
+            <li>Use your own API key and pay the AI provider directly for actual usage.</li>
+            <li>In most cases, that means the AI cost is only pennies per micro-course.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="reviews-snippet-section">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Real customer feedback</div>
+          <h2>What People Are Saying About Micro Course Maker</h2>
+        </div>
+
+        <div class="reviews-snippet-box">
+          <div data-five-star-reviews-plugin="9d7098d45078d5ee-reviews"></div>
+          <script src="https://barryrodgers.com/reviews/five-star-reviews-plugin/snippet.js"></script>
+        </div>
+      </div>
+    </section>
+
+
+<section id="pricing">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Get instant access</div>
+          <h2>Choose your version of Micro Course Maker</h2>
+          <p>Both options are one-time prices. Pick Standard if you want the core app. Pick Pro if you want the lead-generation extras.</p>
+        </div>
+
+        <div class="pricing">
+          <div class="price">
+            <h3>Standard</h3>
+            <p>Everything you need to create interactive micro-courses.</p>
+            <div class="price-amount"><span class="now">$47</span></div>
+            <small>One-time payment · Instant access</small>
+            <ul>
+              <li>AI-generated micro-courses in minutes</li>
+              <li>Interactive tap-through lessons</li>
+              <li>Optional quizzes for each module</li>
+              <li>Add images and videos</li>
+              <li>Fully editable content</li>
+              <li>Upload supporting PDF or TXT files</li>
+              <li>Rewrite and refine with AI inside the editor</li>
+              <li>Built-in call-to-action at the end</li>
+              <li>Mobile-friendly HTML output</li>
+            </ul>
+            <a class="btn btn-primary" href="https://warriorplus.com/o2/buy/w4xrl7/cmjfs1/r9l0f8">Get Standard — $47</a>
+          </div>
+
+          <div class="price pro">
+            <span class="tag">Best Value</span>
+            <h3>Pro</h3>
+            <p>Turn your micro-course into a complete lead-generation asset.</p>
+            <div class="price-amount"><span class="now">$67</span></div>
+            <small>One-time payment · Instant access</small>
+            <ul>
+              <li>Everything in Standard</li>
+              <li style="color: #67E8F9; font-weight:900;">Built-in optional squeeze page generator</li>
+              <li>Capture leads before delivering the course</li>
+              <li style="color: #67E8F9; font-weight:900;">Downloadable PDF version of the course at the end (with cta link)</li>
+              <li>Give users an interactive version and a takeaway resource</li>
+              <li>Use your micro-course as a stronger lead magnet</li>
+              <li>Create a natural bridge to your CTA or offer</li>
+            </ul>
+            <a class="btn btn-primary" href="https://warriorplus.com/o2/buy/w4xrl7/cmjfs1/fv7cjc">Get Pro — $67</a>
+          </div>
+        </div>
+
+        <div class="guarantee panel">
+          <div class="seal">✓</div>
+          <div>
+            <h3>7-Day “Love It Or Shove It” Guarantee</h3>
+            <p>Try Micro Course Maker. If you do not love it, or it does not deliver for you, ask for a full refund within 7 days. No drama.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Quick questions</div>
+          <h2>What people ask before joining</h2>
+        </div>
+
+        <div class="faq">
+          <details open>
+            <summary>Do I need to know how to code?</summary>
+            <p>No. The app creates the course structure and formatted output for you. You can edit the content, but you do not need to mess around under the hood.</p>
+          </details>
+          <details>
+            <summary>How long will it take to build my first micro-course?</summary>
+            <p>In most cases, just a few minutes. Add your topic, choose your settings, optionally upload a document, and click generate.</p>
+          </details>
+          <details>
+            <summary>Do I need a paid ChatGPT account?</summary>
+            <p>No. You need an OpenAI API key instead. There are instructions for setting this up, and you only pay for the AI usage you actually use.</p>
+          </details>
+          <details>
+            <summary>What rights do I have to the courses I create?</summary>
+            <p>The courses you create are yours. Use them for your own list, as affiliate bonuses, as lead magnets, or even as rebrandable/PLR-style assets.</p>
+          </details>
+          <details>
+            <summary>Do I need hosting?</summary>
+            <p>Yes, you need somewhere to upload the exported HTML course. The files are small, so you do not need anything fancy.</p>
+          </details>
+          <details>
+            <summary>Do I need an autoresponder?</summary>
+            <p>Only if you want to capture leads. The Pro version includes an optional squeeze page generator, so you will need an autoresponder account that lets you embed opt-in forms.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="wrap">
+        <div class="kicker">Stop losing attention to PDFs people never read</div>
+        <h2>Give your audience a tiny course they can actually finish</h2>
+        <p>Micro Course Maker helps you turn simple ideas and existing content into interactive lead magnets, bonuses and conversion assets in minutes.</p>
+        <div class="cta-row" style="justify-content:center">
+          <a class="btn btn-primary" href="https://warriorplus.com/o2/buy/w4xrl7/cmjfs1/r9l0f8">Get Standard — $47 →</a>
+          <a class="btn btn-secondary" href="https://warriorplus.com/o2/buy/w4xrl7/cmjfs1/fv7cjc">Get Pro — $67 →</a>
+        </div>
+        <div class="proof-line" style="justify-content:center">
+          <span>Instant access</span><span>One-time payment</span><span>7-day guarantee</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p><strong>Earnings Disclaimer:</strong> We make every effort to accurately represent these products and services and their potential for income. There is no guarantee that you will make any specific level of income. Your results will vary based on your individual capacity, experience, dedication, desire and market conditions. You accept the risk that earnings and income statements differ by individual.</p>
+      <p>The use of our information, products and services should be based on your own due diligence. Rodgers Marketing is not liable for any success or failure of your business that is directly or indirectly related to the purchase and use of our information, products and services.</p>
+      <p>*Legal pages included with generated courses are basic privacy/disclaimer pages and may not cover everyone everywhere. Professional legal advice is recommended for your locale.</p>
+	  <p><div class="wplus_spdisclaimer"></div></p>
+      <p>© Rodgers Marketing · <a href="https://rodgersmarketing.co.uk/privacy">Privacy</a> | <a href="https://rodgersmarketing.co.uk/disclaimer">Disclaimer</a></p>
+    </div>
+  </footer>
+<script type="text/javascript" src="https://warriorplus.com/o2/js/cmjfs1" defer></script>
+</body>
+</html>
